@@ -1,3 +1,1612 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-  </html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>財富水塔健檢中心</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --warm-white: #fffaf4;
+    --amber-light: #fde9c4;
+    --amber: #e8a040;
+    --amber-deep: #c87820;
+    --terracotta: #c46040;
+    --teal: #3a7d6e;
+    --teal-light: #5aab98;
+    --teal-pale: #d6eee9;
+    --brown-soft: #7a5c3a;
+    --brown-light: #a07850;
+    --text-dark: #2c2218;
+    --text-mid: #5a4030;
+    --text-light: #8a6a50;
+    --shadow-warm: 0 4px 24px rgba(200,120,32,0.12);
+    --shadow-card: 0 2px 16px rgba(44,34,24,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== BACKGROUND TEXTURE ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(232,160,64,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(58,125,110,0.07) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    position: relative;
+    background: linear-gradient(135deg, #2c4a3e 0%, #3a7d6e 40%, #4a8d50 70%, #5a9d60 100%);
+    padding: 0;
+    overflow: hidden;
+    z-index: 10;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
+  }
+  .header-inner {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 32px 40px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .header-logo {
+    flex-shrink: 0;
+    width: 88px;
+    height: 88px;
+  }
+  .header-logo svg { width: 100%; height: 100%; }
+  .header-text h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .header-text .subtitle {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: 0.12em;
+    font-weight: 300;
+  }
+  .header-tagline {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .tag-pill {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253,246,236,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid rgba(232,160,64,0.25);
+    box-shadow: 0 2px 16px rgba(44,34,24,0.06);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 14px 18px;
+    font-size: 0.82rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    color: var(--text-mid);
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2.5px;
+    background: var(--amber);
+    border-radius: 2px;
+    transition: transform 0.25s;
+  }
+  .nav-btn:hover, .nav-btn.active { color: var(--amber-deep); }
+  .nav-btn:hover::after, .nav-btn.active::after { transform: translateX(-50%) scaleX(1); }
+
+  /* ===== MAIN LAYOUT ===== */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-teal { background: var(--teal-pale); }
+  .icon-amber { background: var(--amber-light); }
+  .icon-terra { background: #f5ddd4; }
+  .section-title h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: 0.04em;
+  }
+  .section-title .section-desc {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  /* ===== CARD ===== */
+  .card {
+    background: var(--warm-white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(232,160,64,0.15);
+    margin-bottom: 40px;
+    transition: box-shadow 0.3s;
+  }
+  .card:hover { box-shadow: var(--shadow-warm); }
+
+  /* ===== DIVIDER ===== */
+  .wave-divider {
+    text-align: center;
+    margin: 8px 0 36px;
+    color: var(--amber);
+    opacity: 0.5;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+  }
+
+  /* ===== FORM ELEMENTS ===== */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    letter-spacing: 0.04em;
+  }
+  .form-group input, .form-group select {
+    padding: 11px 14px;
+    border: 1.5px solid #e8d8c8;
+    border-radius: var(--radius-sm);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    background: #fffef9;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--teal-light);
+    box-shadow: 0 0 0 3px rgba(90,171,152,0.15);
+  }
+  .input-hint {
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    color: #fff;
+    border: none;
+    padding: 13px 32px;
+    border-radius: 50px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    box-shadow: 0 4px 16px rgba(58,125,110,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(58,125,110,0.38);
+  }
+  .btn-amber {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--amber-deep) 100%);
+    color: #fff;
+    border: none;
+    padding: 13px 32px;
+    border-radius: 50px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    box-shadow: 0 4px 16px rgba(200,120,32,0.28);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-amber:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200,120,32,0.36);
+  }
+  .btn-row {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ===== RESULT BOXES ===== */
+  .result-box {
+    background: linear-gradient(135deg, var(--teal-pale), #edf9f6);
+    border-radius: var(--radius-sm);
+    padding: 24px 28px;
+    margin-top: 24px;
+    border-left: 4px solid var(--teal);
+    display: none;
+  }
+  .result-box.show { display: block; animation: fadeSlideUp 0.4s ease; }
+  .result-box.amber-box {
+    background: linear-gradient(135deg, #fff4e0, #fef9f0);
+    border-left-color: var(--amber);
+  }
+  .result-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .result-box.amber-box .result-title { color: var(--amber-deep); }
+  .result-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .result-unit {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-left: 6px;
+  }
+  .result-desc {
+    margin-top: 10px;
+    font-size: 0.84rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== HEALTH CHECK TABLE ===== */
+  .check-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.88rem;
+  }
+  .check-table thead tr th {
+    background: linear-gradient(90deg, #2c4a3e, #3a7d6e);
+    color: #fff;
+    padding: 12px 16px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+  }
+  .check-table thead tr th:first-child { border-radius: 10px 0 0 0; }
+  .check-table thead tr th:last-child  { border-radius: 0 10px 0 0; }
+  .check-table tbody tr {
+    transition: background 0.2s;
+  }
+  .check-table tbody tr:nth-child(odd)  { background: #fffaf4; }
+  .check-table tbody tr:nth-child(even) { background: #f5ece0; }
+  .check-table tbody tr:hover { background: var(--teal-pale); }
+  .check-table tbody td {
+    padding: 12px 16px;
+    color: var(--text-mid);
+    border-bottom: 1px solid rgba(232,200,160,0.3);
+  }
+  .check-table td input[type="number"] {
+    width: 120px;
+    padding: 7px 10px;
+    border: 1.5px solid #e8d8c8;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: #fff;
+    outline: none;
+  }
+  .check-table td input[type="number"]:focus {
+    border-color: var(--teal-light);
+    box-shadow: 0 0 0 3px rgba(90,171,152,0.15);
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .status-good    { background: #d4f0e8; color: #1a6b52; }
+  .status-warning { background: #fef0c8; color: #a06010; }
+  .status-danger  { background: #fde0d8; color: #b03820; }
+  .status-none    { background: #ece8e0; color: #7a6a58; }
+
+  /* ===== ASSET / LIABILITY TABLE ===== */
+  .balance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 680px) {
+    .balance-grid { grid-template-columns: 1fr; }
+  }
+  .balance-panel {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1.5px solid rgba(232,200,160,0.4);
+  }
+  .balance-panel-header {
+    padding: 12px 18px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .asset-header { background: var(--teal-pale); color: var(--teal); }
+  .liab-header  { background: #fde8e0; color: var(--terracotta); }
+  .balance-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(232,200,160,0.2);
+    gap: 10px;
+    background: #fffdf8;
+  }
+  .balance-item:last-child { border-bottom: none; }
+  .balance-item label {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    flex: 1;
+    min-width: 80px;
+  }
+  .balance-item input {
+    width: 130px;
+    padding: 7px 10px;
+    border: 1.5px solid #e8d8c8;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: #fff;
+    outline: none;
+    text-align: right;
+  }
+  .balance-item input:focus {
+    border-color: var(--teal-light);
+    box-shadow: 0 0 0 3px rgba(90,171,152,0.15);
+  }
+  .balance-total {
+    padding: 13px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .asset-total-row { background: var(--teal-pale); color: var(--teal); }
+  .liab-total-row  { background: #fde8e0; color: var(--terracotta); }
+
+  /* ===== NET WORTH DISPLAY ===== */
+  .networth-display {
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(135deg, #2c4a3e 0%, #3a7d6e 60%, #4a8d50 100%);
+    border-radius: var(--radius);
+    color: #fff;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+    display: none;
+  }
+  .networth-display.show { display: block; animation: fadeSlideUp 0.5s ease; }
+  .networth-display::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.04'%3E%3Cpath d='M0 0h40v40H0zm40 40h40v40H40z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .nw-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+  .nw-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .nw-currency {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-right: 6px;
+  }
+  .nw-subtext {
+    margin-top: 12px;
+    font-size: 0.82rem;
+    opacity: 0.72;
+  }
+
+  /* ===== WEALTH LADDER ===== */
+  .ladder-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .ladder-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid transparent;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .ladder-step.active {
+    border-color: var(--amber);
+    box-shadow: 0 4px 20px rgba(232,160,64,0.2);
+    transform: translateX(6px);
+  }
+  .ladder-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .ladder-info { flex: 1; }
+  .ladder-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .ladder-range {
+    font-size: 0.78rem;
+    color: var(--text-light);
+  }
+  .ladder-bar-wrap {
+    width: 120px;
+    height: 8px;
+    background: rgba(200,180,160,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .ladder-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+  .ladder-s1 { background: var(--cream); border-color: #e0d0bc; }
+  .ladder-s1 .ladder-num { color: #c8a880; }
+  .ladder-s1 .ladder-bar { background: #c8a880; }
+  .ladder-s2 { background: #fff5e8; border-color: #f0dfc0; }
+  .ladder-s2 .ladder-num { color: var(--amber); }
+  .ladder-s2 .ladder-bar { background: var(--amber); }
+  .ladder-s3 { background: #fff8e0; border-color: #ece4c0; }
+  .ladder-s3 .ladder-num { color: #d0a830; }
+  .ladder-s3 .ladder-bar { background: #d0a830; }
+  .ladder-s4 { background: var(--teal-pale); border-color: #b8ddd6; }
+  .ladder-s4 .ladder-num { color: var(--teal); }
+  .ladder-s4 .ladder-bar { background: var(--teal); }
+  .ladder-s5 { background: #e8f8f2; border-color: #a8d8c8; }
+  .ladder-s5 .ladder-num { color: #1a7c5a; }
+  .ladder-s5 .ladder-bar { background: #1a7c5a; }
+  .ladder-s6 { background: linear-gradient(90deg, #f8ece0, #fff4d8); border-color: #d8b888; }
+  .ladder-s6 .ladder-num { color: var(--terracotta); }
+  .ladder-s6 .ladder-bar { background: linear-gradient(90deg, var(--amber), var(--terracotta)); }
+
+  /* ===== CHARTS ===== */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 700px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+  .chart-card {
+    background: #fffdf8;
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    border: 1.5px solid rgba(232,200,160,0.35);
+    box-shadow: 0 2px 12px rgba(44,34,24,0.05);
+  }
+  .chart-card h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+  .chart-wrap { position: relative; width: 100%; height: 220px; }
+
+  /* ===== TIPS PANEL ===== */
+  .tips-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .tip-card {
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    border-left: 4px solid;
+    background: #fffdf8;
+  }
+  .tip-card.t1 { border-color: var(--teal); }
+  .tip-card.t2 { border-color: var(--amber); }
+  .tip-card.t3 { border-color: var(--terracotta); }
+  .tip-card.t4 { border-color: #8a6ab4; }
+  .tip-title {
+    font-weight: 600;
+    font-size: 0.84rem;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+    letter-spacing: 0.03em;
+  }
+  .tip-text { font-size: 0.79rem; color: var(--text-mid); line-height: 1.65; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #2c3c32;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    line-height: 1.8;
+  }
+  footer strong { color: rgba(255,255,255,0.9); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; text-align: center; padding: 32px 20px 28px; }
+    main { padding: 24px 16px 60px; }
+    .card { padding: 22px 18px; }
+    .nw-value { font-size: 2.2rem; }
+  }
+
+  /* ===== SCROLL ANIMATION ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-inner">
+    <div class="header-logo">
+      <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="88" height="88" rx="20" fill="rgba(255,255,255,0.1)"/>
+        <!-- Water tank body -->
+        <rect x="28" y="36" width="32" height="28" rx="4" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <!-- Water fill -->
+        <rect x="30" y="48" width="28" height="14" rx="0 0 3 3" fill="rgba(90,200,180,0.6)"/>
+        <!-- Wave -->
+        <path d="M30 48 Q36 45 44 48 Q52 51 58 48" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" fill="none"/>
+        <!-- Pipes -->
+        <rect x="38" y="28" width="12" height="10" rx="2" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+        <rect x="42" y="64" width="4" height="10" rx="2" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+        <!-- Cross / health symbol -->
+        <rect x="42" y="17" width="4" height="9" rx="2" fill="rgba(255,220,80,0.9)"/>
+        <rect x="38.5" y="20" width="11" height="4" rx="2" fill="rgba(255,220,80,0.9)"/>
+        <!-- Droplets -->
+        <circle cx="18" cy="52" r="3" fill="rgba(90,200,180,0.5)"/>
+        <circle cx="70" cy="46" r="2.5" fill="rgba(90,200,180,0.4)"/>
+        <circle cx="24" cy="62" r="2" fill="rgba(90,200,180,0.35)"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>財富水塔健檢中心</h1>
+      <div class="subtitle">Wealth Water Tower Financial Health Center</div>
+      <div class="header-tagline">
+        <span class="tag-pill">護理師適用</span>
+        <span class="tag-pill">上班族適用</span>
+        <span class="tag-pill">免費健檢</span>
+        <span class="tag-pill">即時計算</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="scrollToSection('health')">健檢表</button>
+    <button class="nav-btn" onclick="scrollToSection('reservoir')">水庫計算器</button>
+    <button class="nav-btn" onclick="scrollToSection('balance')">資產負債表</button>
+    <button class="nav-btn" onclick="scrollToSection('networth')">淨資產</button>
+    <button class="nav-btn" onclick="scrollToSection('ladder')">財富階梯</button>
+    <button class="nav-btn" onclick="scrollToSection('charts')">圖表分析</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===== SECTION 1: HEALTH CHECK TABLE ===== -->
+<section id="health" class="fade-in">
+  <div class="section-title">
+    <div class="section-icon icon-teal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M9 12l2 2 4-4M7 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2h-2" stroke="#3a7d6e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 3h6v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V3z" stroke="#3a7d6e" stroke-width="1.8"/>
+      </svg>
+    </div>
+    <div>
+      <h2>財富水塔健檢表</h2>
+      <div class="section-desc">輸入您的財務數據，系統自動評估各項指標健康狀況</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="form-grid" style="margin-bottom:24px;">
+      <div class="form-group">
+        <label>每月稅後收入（元）</label>
+        <input type="number" id="monthly_income" placeholder="例：45000" oninput="updateCheckTable()">
+      </div>
+      <div class="form-group">
+        <label>每月總支出（元）</label>
+        <input type="number" id="monthly_expense" placeholder="例：32000" oninput="updateCheckTable()">
+      </div>
+      <div class="form-group">
+        <label>每月儲蓄 / 投資（元）</label>
+        <input type="number" id="monthly_save" placeholder="例：10000" oninput="updateCheckTable()">
+      </div>
+      <div class="form-group">
+        <label>每月負債還款（元）</label>
+        <input type="number" id="monthly_debt" placeholder="例：5000" oninput="updateCheckTable()">
+      </div>
+      <div class="form-group">
+        <label>緊急預備金（元）</label>
+        <input type="number" id="emergency_fund" placeholder="例：200000" oninput="updateCheckTable()">
+      </div>
+      <div class="form-group">
+        <label>總資產（元）</label>
+        <input type="number" id="total_assets_health" placeholder="例：800000" oninput="updateCheckTable()">
+      </div>
+    </div>
+
+    <div class="wave-divider">- - - - - - - - - - - - - - - -</div>
+
+    <table class="check-table">
+      <thead>
+        <tr>
+          <th>健檢項目</th>
+          <th>您的數值</th>
+          <th>建議標準</th>
+          <th>狀態</th>
+          <th>說明</th>
+        </tr>
+      </thead>
+      <tbody id="checkTableBody">
+        <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-light);font-size:0.85rem;">請輸入上方數據以進行健檢</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: RESERVOIR CALCULATOR ===== -->
+<section id="reservoir" class="fade-in">
+  <div class="section-title">
+    <div class="section-icon icon-amber">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#e8a040" stroke-width="1.8"/>
+        <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#e8a040" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M9 9h.01M15 9h.01" stroke="#e8a040" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <h2>財富水庫計算器</h2>
+      <div class="section-desc">計算您的財富水位與每月蓄水量，預測達成目標所需時間</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>目前總存款 / 投資（元）</label>
+        <input type="number" id="res_current" placeholder="例：500000">
+        <span class="input-hint">包含活存、定存、股票市值</span>
+      </div>
+      <div class="form-group">
+        <label>目標財富水位（元）</label>
+        <input type="number" id="res_target" placeholder="例：3000000">
+        <span class="input-hint">您希望累積的財富目標</span>
+      </div>
+      <div class="form-group">
+        <label>每月儲蓄金額（元）</label>
+        <input type="number" id="res_monthly" placeholder="例：12000">
+      </div>
+      <div class="form-group">
+        <label>年化報酬率（%）</label>
+        <input type="number" id="res_rate" placeholder="例：6" step="0.1">
+        <span class="input-hint">保守估計 3%，定存 1.5%</span>
+      </div>
+      <div class="form-group">
+        <label>月支出（元）</label>
+        <input type="number" id="res_expense" placeholder="例：30000">
+        <span class="input-hint">計算財務自由度使用</span>
+      </div>
+      <div class="form-group">
+        <label>預計退休年齡</label>
+        <input type="number" id="res_retire_age" placeholder="例：60">
+        <input type="number" id="res_current_age" placeholder="目前年齡（例：35）" style="margin-top:6px;">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-amber" onclick="calcReservoir()">計算水庫蓄水量</button>
+    </div>
+
+    <div class="result-box amber-box" id="reservoirResult">
+      <div class="result-title">水庫蓄水分析報告</div>
+      <div id="reservoirContent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: BALANCE SHEET ===== -->
+<section id="balance" class="fade-in">
+  <div class="section-title">
+    <div class="section-icon icon-terra">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="3" stroke="#c46040" stroke-width="1.8"/>
+        <path d="M3 9h18M9 9v12" stroke="#c46040" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <h2>資產負債表</h2>
+      <div class="section-desc">全面盤點您的資產與負債，建立個人財務藍圖</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="balance-grid">
+      <!-- ASSETS -->
+      <div>
+        <div class="balance-panel">
+          <div class="balance-panel-header asset-header">資產（Assets）</div>
+          <div class="balance-item">
+            <label>活期存款</label>
+            <input type="number" id="a1" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>定期存款</label>
+            <input type="number" id="a2" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>股票市值</label>
+            <input type="number" id="a3" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>基金 / ETF</label>
+            <input type="number" id="a4" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>不動產市值</label>
+            <input type="number" id="a5" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>退休金帳戶</label>
+            <input type="number" id="a6" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>保險現金價值</label>
+            <input type="number" id="a7" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>其他資產</label>
+            <input type="number" id="a8" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-total asset-total-row">
+            <span>總資產</span>
+            <span id="total_assets_disp">NT$ 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIABILITIES -->
+      <div>
+        <div class="balance-panel">
+          <div class="balance-panel-header liab-header">負債（Liabilities）</div>
+          <div class="balance-item">
+            <label>房屋貸款</label>
+            <input type="number" id="l1" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>汽車貸款</label>
+            <input type="number" id="l2" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>信用卡未繳</label>
+            <input type="number" id="l3" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>學貸 / 就學貸</label>
+            <input type="number" id="l4" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>個人信貸</label>
+            <input type="number" id="l5" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>家人借款</label>
+            <input type="number" id="l6" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item">
+            <label>其他負債</label>
+            <input type="number" id="l7" placeholder="0" oninput="calcBalance()">
+          </div>
+          <div class="balance-item" style="visibility:hidden;">
+            <label></label><input type="number" placeholder="0" disabled>
+          </div>
+          <div class="balance-total liab-total-row">
+            <span>總負債</span>
+            <span id="total_liabs_disp">NT$ 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="networth-display" id="networthDisplay">
+      <div class="nw-label">個人淨資產（Net Worth）</div>
+      <div class="nw-value"><span class="nw-currency">NT$</span><span id="nwValue">0</span></div>
+      <div class="nw-subtext" id="nwSubtext"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: NET WORTH CALCULATION ===== -->
+<section id="networth" class="fade-in">
+  <div class="section-title">
+    <div class="section-icon icon-teal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#3a7d6e" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <h2>淨資產快速計算</h2>
+      <div class="section-desc">快速計算您的財富淨值，了解真實財務狀況</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>總資產合計（元）</label>
+        <input type="number" id="nw_assets" placeholder="例：1500000" oninput="calcNetWorth()">
+        <span class="input-hint">所有有價資產總和</span>
+      </div>
+      <div class="form-group">
+        <label>總負債合計（元）</label>
+        <input type="number" id="nw_liabs" placeholder="例：600000" oninput="calcNetWorth()">
+        <span class="input-hint">所有欠款總和</span>
+      </div>
+      <div class="form-group">
+        <label>年齡</label>
+        <input type="number" id="nw_age" placeholder="例：35" oninput="calcNetWorth()">
+      </div>
+      <div class="form-group">
+        <label>年收入（元）</label>
+        <input type="number" id="nw_annual_income" placeholder="例：600000" oninput="calcNetWorth()">
+        <span class="input-hint">用於計算財富指數</span>
+      </div>
+    </div>
+
+    <div class="result-box" id="networthResult">
+      <div class="result-title">淨資產健檢結果</div>
+      <div id="networthContent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: WEALTH LADDER ===== -->
+<section id="ladder" class="fade-in">
+  <div class="section-title">
+    <div class="section-icon icon-amber">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M4 20V4M20 20V10M12 20V7" stroke="#e8a040" stroke-width="2" stroke-linecap="round"/>
+        <rect x="2" y="17" width="4" height="4" rx="1" fill="#e8a040"/>
+        <rect x="10" y="4" width="4" height="4" rx="1" fill="#e8a040"/>
+        <rect x="18" y="7" width="4" height="4" rx="1" fill="#e8a040"/>
+      </svg>
+    </div>
+    <div>
+      <h2>財富階梯評估</h2>
+      <div class="section-desc">對照台灣財富分布，了解您目前站在哪一階</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="form-grid" style="margin-bottom:24px;">
+      <div class="form-group">
+        <label>您的淨資產（元）</label>
+        <input type="number" id="ladder_nw" placeholder="例：900000" oninput="evalLadder()">
+        <span class="input-hint">可從資產負債表同步</span>
+      </div>
+      <div class="form-group">
+        <label>年齡</label>
+        <input type="number" id="ladder_age" placeholder="例：32" oninput="evalLadder()">
+      </div>
+    </div>
+
+    <div class="ladder-container" id="ladderContainer">
+      <!-- Rendered by JS -->
+    </div>
+
+    <div class="result-box amber-box" id="ladderResult" style="margin-top:20px;">
+      <div class="result-title">您的財富水位</div>
+      <div id="ladderContent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: CHARTS ===== -->
+<section id="charts" class="fade-in">
+  <div class="section-title">
+    <div class="section-icon icon-teal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 3v18h18" stroke="#3a7d6e" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M7 16l4-4 4 4 4-6" stroke="#3a7d6e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <h2>財務圖表視覺化</h2>
+      <div class="section-desc">將您的財務數據轉化為直觀圖表，一眼掌握財富全貌</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="btn-row" style="margin-top:0; margin-bottom:24px;">
+      <button class="btn-primary" onclick="renderAllCharts()">更新所有圖表</button>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>資產 vs 負債 比較</h3>
+        <div class="chart-wrap"><canvas id="chart1"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>收入分配比例</h3>
+        <div class="chart-wrap"><canvas id="chart2"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>資產組成結構</h3>
+        <div class="chart-wrap"><canvas id="chart3"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>財富水塔水位預測</h3>
+        <div class="chart-wrap"><canvas id="chart4"></canvas></div>
+      </div>
+    </div>
+
+    <div class="tips-row">
+      <div class="tip-card t1">
+        <div class="tip-title">緊急預備金原則</div>
+        <div class="tip-text">建議備有 3~6 個月月支出的緊急備用金，存放於活存或貨幣型基金。</div>
+      </div>
+      <div class="tip-card t2">
+        <div class="tip-title">儲蓄率黃金比例</div>
+        <div class="tip-text">收入的 10% 起步儲蓄，護理師可善用輪班制度的加班津貼優勢。</div>
+      </div>
+      <div class="tip-card t3">
+        <div class="tip-title">負債比例警戒線</div>
+        <div class="tip-text">每月負債還款不宜超過稅後收入的 36%，否則會壓縮財富蓄積空間。</div>
+      </div>
+      <div class="tip-card t4">
+        <div class="tip-title">財務自由水位</div>
+        <div class="tip-text">資產產生的被動收入 &gt;= 每月支出，即達到財務自由的里程碑。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <strong>財富水塔健檢中心</strong> &copy; 2025 &nbsp;|&nbsp; 本工具僅供教育性財務規劃參考，不構成投資建議<br>
+  適合護理師、上班族作為個人財務健診工具 &nbsp;|&nbsp; 所有計算均在本地端進行，不儲存任何個人資料
+</footer>
+
+<script>
+// ======================================================
+// NAV SCROLL
+// ======================================================
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Active nav highlight
+window.addEventListener('scroll', () => {
+  const sections = ['health','reservoir','balance','networth','ladder','charts'];
+  const btns = document.querySelectorAll('.nav-btn');
+  let current = 'health';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 100) current = id;
+  });
+  const order = ['health','reservoir','balance','networth','ladder','charts'];
+  btns.forEach((btn, i) => {
+    btn.classList.toggle('active', order[i] === current);
+  });
+});
+
+// ======================================================
+// FADE-IN ON SCROLL
+// ======================================================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ======================================================
+// HEALTH CHECK TABLE
+// ======================================================
+function updateCheckTable() {
+  const income  = +document.getElementById('monthly_income').value || 0;
+  const expense = +document.getElementById('monthly_expense').value || 0;
+  const save    = +document.getElementById('monthly_save').value || 0;
+  const debt    = +document.getElementById('monthly_debt').value || 0;
+  const emerg   = +document.getElementById('emergency_fund').value || 0;
+  const assets  = +document.getElementById('total_assets_health').value || 0;
+
+  if (!income) {
+    document.getElementById('checkTableBody').innerHTML =
+      '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-light);font-size:0.85rem;">請輸入月收入以進行健檢</td></tr>';
+    return;
+  }
+
+  const saveRate   = income > 0 ? save / income * 100 : 0;
+  const debtRate   = income > 0 ? debt / income * 100 : 0;
+  const emergMths  = expense > 0 ? emerg / expense : 0;
+  const expenseRate= income > 0 ? expense / income * 100 : 0;
+
+  const checks = [
+    {
+      name: '儲蓄率',
+      val: saveRate.toFixed(1) + '%',
+      std: '>= 20%',
+      status: saveRate >= 20 ? 'good' : saveRate >= 10 ? 'warning' : 'danger',
+      label: saveRate >= 20 ? '優秀' : saveRate >= 10 ? '尚可' : '需改善',
+      note: '每月儲蓄佔稅後收入比例'
+    },
+    {
+      name: '負債還款比',
+      val: debtRate.toFixed(1) + '%',
+      std: '<= 36%',
+      status: debtRate <= 20 ? 'good' : debtRate <= 36 ? 'warning' : 'danger',
+      label: debtRate <= 20 ? '健康' : debtRate <= 36 ? '注意' : '危險',
+      note: '月還款金額佔收入比例'
+    },
+    {
+      name: '緊急備用金',
+      val: emergMths.toFixed(1) + ' 個月',
+      std: '>= 3 個月',
+      status: emergMths >= 6 ? 'good' : emergMths >= 3 ? 'warning' : 'danger',
+      label: emergMths >= 6 ? '充足' : emergMths >= 3 ? '基本' : '不足',
+      note: '緊急預備金可支撐幾個月支出'
+    },
+    {
+      name: '支出比率',
+      val: expenseRate.toFixed(1) + '%',
+      std: '<= 70%',
+      status: expenseRate <= 60 ? 'good' : expenseRate <= 75 ? 'warning' : 'danger',
+      label: expenseRate <= 60 ? '良好' : expenseRate <= 75 ? '偏高' : '超標',
+      note: '月支出佔月收入比例'
+    },
+    {
+      name: '月結餘',
+      val: 'NT$ ' + (income - expense).toLocaleString(),
+      std: '> 0',
+      status: (income - expense) > 5000 ? 'good' : (income - expense) > 0 ? 'warning' : 'danger',
+      label: (income - expense) > 5000 ? '有盈餘' : (income - expense) > 0 ? '微盈餘' : '入不敷出',
+      note: '每月收入扣除支出後剩餘'
+    },
+    {
+      name: '資產積累',
+      val: 'NT$ ' + assets.toLocaleString(),
+      std: '逐年增加',
+      status: assets > income * 12 ? 'good' : assets > income * 6 ? 'warning' : assets > 0 ? 'none' : 'danger',
+      label: assets > income * 12 ? '豐沛' : assets > income * 6 ? '成長中' : assets > 0 ? '起步' : '待建立',
+      note: '總資產是否超過年收入'
+    }
+  ];
+
+  const statusClass = { good: 'status-good', warning: 'status-warning', danger: 'status-danger', none: 'status-none' };
+  let html = '';
+  checks.forEach(c => {
+    html += `<tr>
+      <td style="font-weight:500;color:var(--text-dark);">${c.name}</td>
+      <td style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--text-dark);">${c.val}</td>
+      <td style="color:var(--text-light);font-size:0.82rem;">${c.std}</td>
+      <td><span class="status-badge ${statusClass[c.status]}">${c.label}</span></td>
+      <td style="color:var(--text-light);font-size:0.78rem;">${c.note}</td>
+    </tr>`;
+  });
+  document.getElementById('checkTableBody').innerHTML = html;
+}
+
+// ======================================================
+// RESERVOIR CALCULATOR
+// ======================================================
+function calcReservoir() {
+  const current     = +document.getElementById('res_current').value || 0;
+  const target      = +document.getElementById('res_target').value || 0;
+  const monthly     = +document.getElementById('res_monthly').value || 0;
+  const rate        = (+document.getElementById('res_rate').value || 0) / 100 / 12;
+  const monthlyExp  = +document.getElementById('res_expense').value || 0;
+  const retireAge   = +document.getElementById('res_retire_age').value || 60;
+  const currentAge  = +document.getElementById('res_current_age').value || 30;
+
+  if (!target || !monthly) {
+    alert('請填寫目標金額與每月儲蓄');
+    return;
+  }
+
+  // Months to reach target
+  let months = 0;
+  let balance = current;
+  if (rate > 0) {
+    // FV with contributions: solve for n
+    // FV = PV*(1+r)^n + PMT * [(1+r)^n - 1] / r
+    // Iterate
+    while (balance < target && months < 600) {
+      balance = balance * (1 + rate) + monthly;
+      months++;
+    }
+  } else {
+    months = target > current ? Math.ceil((target - current) / monthly) : 0;
+  }
+
+  const years = Math.floor(months / 12);
+  const rem   = months % 12;
+  const fireNum = monthlyExp > 0 ? monthlyExp * 12 * 25 : 0; // 4% rule
+  const fireYrs = monthlyExp > 0 ? (() => {
+    let b2 = current; let m2 = 0;
+    while (b2 < fireNum && m2 < 600) { b2 = b2*(1+rate)+monthly; m2++; }
+    return m2;
+  })() : null;
+  const yearsToRetire = retireAge - currentAge;
+  let retireBalance = current;
+  for (let i = 0; i < yearsToRetire * 12; i++) {
+    retireBalance = retireBalance * (1 + rate) + monthly;
+  }
+
+  let html = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:16px;">
+      <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.6);border-radius:10px;">
+        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">達成目標時間</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;">${years > 0 ? years + ' 年' : ''}${rem > 0 ? ' ' + rem + ' 個月' : ''}</div>
+        <div style="font-size:0.75rem;color:var(--text-light);">${months >= 600 ? '超過 50 年，請調整計劃' : months + ' 個月後達標'}</div>
+      </div>
+      <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.6);border-radius:10px;">
+        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">退休時預估資產</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;">NT$ ${Math.round(retireBalance).toLocaleString()}</div>
+        <div style="font-size:0.75rem;color:var(--text-light);">${yearsToRetire} 年後（${retireAge} 歲）</div>
+      </div>
+      ${fireNum > 0 ? `<div style="text-align:center;padding:16px;background:rgba(255,255,255,0.6);border-radius:10px;">
+        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">財務自由門檻（4% 法則）</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;">NT$ ${Math.round(fireNum).toLocaleString()}</div>
+        <div style="font-size:0.75rem;color:var(--text-light);">${fireYrs !== null ? Math.round(fireYrs/12) + ' 年後達到 FIRE' : ''}</div>
+      </div>` : ''}
+    </div>
+    <div style="font-size:0.82rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(255,255,255,0.5);border-radius:8px;">
+      <strong>水庫分析：</strong>目前水位 NT$ ${current.toLocaleString()}，目標水位 NT$ ${target.toLocaleString()}，
+      缺口為 NT$ ${(target-current).toLocaleString()}。以每月蓄水 NT$ ${monthly.toLocaleString()} 計算，
+      ${rate > 0 ? '加計年化報酬 ' + (rate*1200).toFixed(1) + '%，' : ''}
+      預計 <strong>${years > 0 ? years+'年' : ''}${rem > 0 ? rem+'個月' : ''}</strong> 後可蓄滿目標水塔。
+    </div>`;
+  document.getElementById('reservoirContent').innerHTML = html;
+  document.getElementById('reservoirResult').classList.add('show');
+}
+
+// ======================================================
+// BALANCE SHEET
+// ======================================================
+function calcBalance() {
+  const aIds = ['a1','a2','a3','a4','a5','a6','a7','a8'];
+  const lIds = ['l1','l2','l3','l4','l5','l6','l7'];
+  const totalA = aIds.reduce((s,id) => s + (+document.getElementById(id).value || 0), 0);
+  const totalL = lIds.reduce((s,id) => s + (+document.getElementById(id).value || 0), 0);
+  const nw = totalA - totalL;
+  document.getElementById('total_assets_disp').textContent = 'NT$ ' + totalA.toLocaleString();
+  document.getElementById('total_liabs_disp').textContent  = 'NT$ ' + totalL.toLocaleString();
+  if (totalA > 0 || totalL > 0) {
+    document.getElementById('nwValue').textContent = Math.abs(nw).toLocaleString();
+    const sub = nw >= 0
+      ? `資產超過負債 NT$ ${nw.toLocaleString()}，財務狀況正向`
+      : `負債超過資產 NT$ ${Math.abs(nw).toLocaleString()}，建議積極還款`;
+    document.getElementById('nwSubtext').textContent = sub;
+    document.getElementById('networthDisplay').classList.add('show');
+    document.getElementById('networthDisplay').style.background =
+      nw >= 0
+        ? 'linear-gradient(135deg, #2c4a3e 0%, #3a7d6e 60%, #4a8d50 100%)'
+        : 'linear-gradient(135deg, #6b2c2c 0%, #9b4040 60%, #c04a3a 100%)';
+    // Sync to networth section
+    document.getElementById('nw_assets').value = totalA || '';
+    document.getElementById('nw_liabs').value  = totalL || '';
+    calcNetWorth();
+    // Sync to ladder
+    document.getElementById('ladder_nw').value = nw || '';
+    evalLadder();
+  }
+}
+
+// ======================================================
+// NET WORTH CALCULATION
+// ======================================================
+function calcNetWorth() {
+  const assets  = +document.getElementById('nw_assets').value || 0;
+  const liabs   = +document.getElementById('nw_liabs').value || 0;
+  const age     = +document.getElementById('nw_age').value || 0;
+  const income  = +document.getElementById('nw_annual_income').value || 0;
+  if (!assets && !liabs) return;
+
+  const nw = assets - liabs;
+  // Thomas Stanley formula: Expected NW = Age * Annual Income / 10
+  const expectedNW = age > 0 && income > 0 ? age * income / 10 : 0;
+  const wealthIndex = expectedNW > 0 ? (nw / expectedNW * 100).toFixed(0) : 0;
+  const liabRatio = assets > 0 ? (liabs / assets * 100).toFixed(1) : 0;
+
+  let wealthLabel = '', wealthColor = '';
+  if (wealthIndex >= 200)     { wealthLabel = '超卓 (PAW)'; wealthColor = '#1a7c5a'; }
+  else if (wealthIndex >= 100){ wealthLabel = '富裕 (AAW)'; wealthColor = '#3a7d6e'; }
+  else if (wealthIndex >= 50) { wealthLabel = '成長中';     wealthColor = '#e8a040'; }
+  else                        { wealthLabel = '需要加速';   wealthColor = '#c46040'; }
+
+  let html = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:14px;">
+      <div style="text-align:center;padding:16px;background:rgba(58,125,110,0.08);border-radius:10px;">
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">淨資產</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${nw>=0?'var(--teal)':'var(--terracotta)'};">
+          ${nw >= 0 ? '' : '-'}NT$ ${Math.abs(nw).toLocaleString()}</div>
+      </div>
+      ${expectedNW > 0 ? `<div style="text-align:center;padding:16px;background:rgba(232,160,64,0.08);border-radius:10px;">
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">期望淨資產</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--amber-deep);">NT$ ${Math.round(expectedNW).toLocaleString()}</div>
+      </div>
+      <div style="text-align:center;padding:16px;background:rgba(232,160,64,0.08);border-radius:10px;">
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">財富指數</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${wealthColor};">${wealthIndex}%</div>
+        <div style="font-size:0.7rem;color:${wealthColor};">${wealthLabel}</div>
+      </div>` : ''}
+      <div style="text-align:center;padding:16px;background:rgba(196,96,64,0.08);border-radius:10px;">
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">負債比率</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${liabRatio<=30?'var(--teal)':liabRatio<=50?'var(--amber-deep)':'var(--terracotta)'};">${liabRatio}%</div>
+      </div>
+    </div>
+    <div style="font-size:0.81rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(58,125,110,0.06);border-radius:8px;">
+      <strong>評估說明：</strong>財富指數 100% 代表您的淨資產達到同齡平均期望值（公式：年齡 x 年收入 / 10）。
+      ${wealthIndex >= 100 ? '您的財富積累優於預期，繼續保持！' :
+        wealthIndex >= 50  ? '您在正確的軌道上，加速儲蓄可提升財富指數。' :
+        '建議檢視支出結構，提高儲蓄率以追上期望值。'}
+    </div>`;
+  document.getElementById('networthContent').innerHTML = html;
+  document.getElementById('networthResult').classList.add('show');
+}
+
+// ======================================================
+// WEALTH LADDER
+// ======================================================
+const ladderSteps = [
+  { num:'1', name:'水桶期', range:'淨資產 < NT$ 100,000', cls:'ladder-s1', min:0,       max:100000,   bar:10 },
+  { num:'2', name:'水缸期', range:'NT$ 10 萬 ~ 50 萬',    cls:'ladder-s2', min:100000,  max:500000,   bar:25 },
+  { num:'3', name:'蓄水池', range:'NT$ 50 萬 ~ 200 萬',   cls:'ladder-s3', min:500000,  max:2000000,  bar:45 },
+  { num:'4', name:'水塔期', range:'NT$ 200 萬 ~ 500 萬',  cls:'ladder-s4', min:2000000, max:5000000,  bar:65 },
+  { num:'5', name:'水庫期', range:'NT$ 500 萬 ~ 3000 萬', cls:'ladder-s5', min:5000000, max:30000000, bar:85 },
+  { num:'6', name:'海洋期', range:'NT$ 3000 萬以上',      cls:'ladder-s6', min:30000000,max:Infinity, bar:100 },
+];
+
+function initLadder() {
+  const con = document.getElementById('ladderContainer');
+  con.innerHTML = ladderSteps.map(s => `
+    <div class="ladder-step ${s.cls}" id="lStep_${s.num}">
+      <div class="ladder-num">${s.num}</div>
+      <div class="ladder-info">
+        <div class="ladder-name">${s.name}</div>
+        <div class="ladder-range">${s.range}</div>
+      </div>
+      <div class="ladder-bar-wrap">
+        <div class="ladder-bar" style="width:${s.bar}%"></div>
+      </div>
+    </div>
+  `).join('');
+}
+initLadder();
+
+function evalLadder() {
+  const nw  = +document.getElementById('ladder_nw').value;
+  const age = +document.getElementById('ladder_age').value || 0;
+  if (!nw) {
+    document.getElementById('ladderResult').classList.remove('show');
+    ladderSteps.forEach(s => document.getElementById('lStep_'+s.num).classList.remove('active'));
+    return;
+  }
+
+  let currentStep = null;
+  ladderSteps.forEach(s => {
+    const el = document.getElementById('lStep_'+s.num);
+    if (nw >= s.min && nw < s.max) { el.classList.add('active'); currentStep = s; }
+    else el.classList.remove('active');
+  });
+
+  if (!currentStep) { currentStep = ladderSteps[0]; }
+
+  const tips = {
+    '1': '正在起步，重點是培養儲蓄習慣，建立緊急預備金。從薪資中強制撥出 10~20% 開始蓄水。',
+    '2': '已有基礎，可開始學習簡單的被動投資（如 ETF），讓水缸自動蓄水。',
+    '3': '蓄水池已成形，是時候規劃多元資產配置，考慮房產、基金或股息型投資。',
+    '4': '水塔豐沛！考慮稅務規劃、遺產規劃，讓財富結構更穩固持久。',
+    '5': '水庫等級，重點轉向財富保值與傳承，被動收入可能已超過生活需求。',
+    '6': '海洋等級，財務自由無虞，可關注影響力投資、慈善或下一代教育規劃。',
+  };
+
+  const ageBonus = age > 0
+    ? `（${age} 歲達到${currentStep.name}，${age < 30 ? '非常優秀！早起的鳥兒有蟲吃。' : age < 40 ? '表現良好，繼續蓄水。' : age < 50 ? '持續累積，未來仍可期。' : '踏實積累，穩健致勝。'}）`
+    : '';
+
+  document.getElementById('ladderContent').innerHTML = `
+    <div style="font-size:1rem;font-weight:600;color:var(--amber-deep);margin-bottom:8px;">
+      您目前位於第 ${currentStep.num} 階：${currentStep.name} ${ageBonus}
+    </div>
+    <div style="font-size:0.83rem;color:var(--text-mid);line-height:1.75;">${tips[currentStep.num]}</div>
+    ${nw < ladderSteps[ladderSteps.length-1].min ? `
+    <div style="margin-top:10px;font-size:0.8rem;color:var(--text-light);">
+      下一階目標：NT$ ${ladderSteps.find(s=>s.min>nw)?.min.toLocaleString() || '---'}
+      &nbsp;|&nbsp; 距離：NT$ ${(ladderSteps.find(s=>s.min>nw)?.min - nw).toLocaleString()}
+    </div>` : ''}
+  `;
+  document.getElementById('ladderResult').classList.add('show');
+}
+
+// ======================================================
+// CHARTS
+// ======================================================
+let chartInstances = {};
+
+function renderAllCharts() {
+  // Gather data
+  const aIds = ['a1','a2','a3','a4','a5','a6','a7','a8'];
+  const lIds = ['l1','l2','l3','l4','l5','l6','l7'];
+  const aVals = aIds.map(id => +document.getElementById(id).value || 0);
+  const lVals = lIds.map(id => +document.getElementById(id).value || 0);
+  const totalA = aVals.reduce((s,v) => s+v, 0);
+  const totalL = lVals.reduce((s,v) => s+v, 0);
+  const income  = +document.getElementById('monthly_income').value || 0;
+  const expense = +document.getElementById('monthly_expense').value || 0;
+  const save    = +document.getElementById('monthly_save').value || 0;
+  const debt    = +document.getElementById('monthly_debt').value || 0;
+
+  const COLORS = {
+    teal:   '#3a7d6e',
+    tealL:  '#5aab98',
+    amber:  '#e8a040',
+    amberD: '#c87820',
+    terra:  '#c46040',
+    brown:  '#a07850',
+    green:  '#4a8d50',
+    cream:  '#d0b898',
+  };
+
+  function destroyChart(id) {
+    if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+  }
+
+  // Chart 1 - Asset vs Liability Bar
+  destroyChart('c1');
+  chartInstances['c1'] = new Chart(document.getElementById('chart1'), {
+    type: 'bar',
+    data: {
+      labels: ['總資產', '總負債', '淨資產'],
+      datasets: [{
+        data: [totalA, totalL, totalA - totalL],
+        backgroundColor: [COLORS.teal, COLORS.terra, totalA-totalL >= 0 ? COLORS.green : '#a03030'],
+        borderRadius: 8,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { ticks: { callback: v => 'NT$' + (v/10000).toFixed(0) + 'W', font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+        x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+      }
+    }
+  });
+
+  // Chart 2 - Income Allocation Donut
+  const other = Math.max(0, income - expense - save - debt);
+  destroyChart('c2');
+  chartInstances['c2'] = new Chart(document.getElementById('chart2'), {
+    type: 'doughnut',
+    data: {
+      labels: ['支出', '儲蓄 / 投資', '還款', '其他'],
+      datasets: [{
+        data: [expense, save, debt, other],
+        backgroundColor: [COLORS.terra, COLORS.teal, COLORS.amber, COLORS.cream],
+        borderWidth: 2,
+        borderColor: '#fffdf8',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 10 } }
+      },
+      cutout: '60%',
+    }
+  });
+
+  // Chart 3 - Asset Breakdown
+  const aLabels = ['活期存款','定存','股票','基金ETF','不動產','退休金','保險','其他'];
+  const aNonZero = aLabels.map((l,i) => ({ l, v: aVals[i] })).filter(x => x.v > 0);
+  destroyChart('c3');
+  chartInstances['c3'] = new Chart(document.getElementById('chart3'), {
+    type: 'doughnut',
+    data: {
+      labels: aNonZero.map(x => x.l),
+      datasets: [{
+        data: aNonZero.map(x => x.v),
+        backgroundColor: ['#3a7d6e','#5aab98','#e8a040','#c87820','#4a8d50','#8a6ab4','#c46040','#a07850'],
+        borderWidth: 2,
+        borderColor: '#fffdf8',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8 } } },
+      cutout: '55%',
+    }
+  });
+
+  // Chart 4 - Wealth Projection Line
+  const mSave    = save || 0;
+  const mRate    = 0.06 / 12;
+  const startVal = totalA || 0;
+  const projLabels = [];
+  const projData   = [];
+  let bal = startVal;
+  for (let yr = 0; yr <= 20; yr++) {
+    projLabels.push(yr + ' 年');
+    projData.push(Math.round(bal));
+    for (let m = 0; m < 12; m++) { bal = bal * (1 + mRate) + mSave; }
+  }
+  destroyChart('c4');
+  chartInstances['c4'] = new Chart(document.getElementById('chart4'), {
+    type: 'line',
+    data: {
+      labels: projLabels,
+      datasets: [{
+        label: '資產預測（6% 年化）',
+        data: projData,
+        borderColor: COLORS.teal,
+        backgroundColor: 'rgba(58,125,110,0.08)',
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointBackgroundColor: COLORS.teal,
+        fill: true,
+        tension: 0.4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { ticks: { callback: v => 'NT$'+(v/10000).toFixed(0)+'W', font:{size:10} }, grid:{color:'rgba(0,0,0,0.05)'} },
+        x: { ticks: { font:{size:10}, maxTicksLimit: 7 }, grid:{display:false} }
+      }
+    }
+  });
+}
+
+// Auto-render charts on page load with placeholder data
+window.addEventListener('load', () => {
+  setTimeout(renderAllCharts, 300);
+});
+</script>
+
+</body>
+</html>
