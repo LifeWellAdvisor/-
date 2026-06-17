@@ -1405,12 +1405,12 @@ function calcNetWorth() {
 // WEALTH LADDER
 // ======================================================
 const ladderSteps = [
-  { num:'1', name:'水桶期', range:'淨資產 < NT$ 100,000', cls:'ladder-s1', min:0,       max:100000,   bar:10 },
-  { num:'2', name:'水缸期', range:'NT$ 10 萬 ~ 50 萬',    cls:'ladder-s2', min:100000,  max:500000,   bar:25 },
-  { num:'3', name:'蓄水池', range:'NT$ 50 萬 ~ 200 萬',   cls:'ladder-s3', min:500000,  max:2000000,  bar:45 },
-  { num:'4', name:'水塔期', range:'NT$ 200 萬 ~ 500 萬',  cls:'ladder-s4', min:2000000, max:5000000,  bar:65 },
-  { num:'5', name:'水庫期', range:'NT$ 500 萬 ~ 3000 萬', cls:'ladder-s5', min:5000000, max:30000000, bar:85 },
-  { num:'6', name:'海洋期', range:'NT$ 3000 萬以上',      cls:'ladder-s6', min:30000000,max:Infinity, bar:100 },
+  { num:'1', name:'水桶期', range:'淨資產 < NT$ 100,000', goal:'建立存錢習慣',cls:'ladder-s1', min:0,       max:100000,   bar:10 },
+  { num:'2', name:'水缸期', range:'NT$ 10 萬 ~ 50 萬', goal:'完成緊急預備金', cls:'ladder-s2', min:100000,  max:500000,   bar:25 },
+  { num:'3', name:'蓄水池', range:'NT$ 50 萬 ~ 200 萬', goal:'開始投資理財',  cls:'ladder-s3', min:500000,  max:2000000,  bar:45 },
+  { num:'4', name:'水塔期', range:'NT$ 200 萬 ~ 500 萬', goal:'建立穩定現金流', cls:'ladder-s4', min:2000000, max:5000000,  bar:65 },
+  { num:'5', name:'水庫期', range:'NT$ 500 萬 ~ 3000 萬',goal:'累積可觀淨資產', cls:'ladder-s5', min:5000000, max:30000000, bar:85 },
+  { num:'6', name:'海洋期', range:'NT$ 3000 萬以上',  goal:'財富傳承與影響力',    cls:'ladder-s6', min:30000000,max:Infinity, bar:100 },
 ];
 
 function initLadder() {
@@ -1421,6 +1421,13 @@ function initLadder() {
       <div class="ladder-info">
         <div class="ladder-name">${s.name}</div>
         <div class="ladder-range">${s.range}</div>
+        .ladder-goal {
+  font-size: 0.85rem;
+  color: #3a7d6e;
+  margin-top: 4px;
+  font-weight: 600;
+}
+          <div class="ladder-goal">${s.goal}</div>
       </div>
       <div class="ladder-bar-wrap">
         <div class="ladder-bar" style="width:${s.bar}%"></div>
