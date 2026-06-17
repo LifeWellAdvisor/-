@@ -1,0 +1,12 @@
+# 1. 建立 GitHub Repository（命名如 wealth-health-center）
+# 2. 將 HTML 檔案存為 index.html
+# 3. 上傳到 Repository
+
+git init
+git add index.html
+git commit -m "初始化財富水塔健檢中心"
+git remote add origin https://github.com/你的帳號/wealth-health-center.git
+git push -u origin main
+
+# 4. 在 Repository Settings > Pages > Source 選 main branch
+# 5. 網站自動發佈至 https://你的帳號.github.io/wealth-health-center
