@@ -736,7 +736,7 @@
     <button class="nav-btn active" onclick="scrollToSection('health')">健檢表</button>
     <button class="nav-btn" onclick="scrollToSection('reservoir')">水庫計算器</button>
     <button class="nav-btn" onclick="scrollToSection('balance')">資產負債表</button>
-    <button class="nav-btn" onclick="scrollToSection('networth')">淨資產</button>
+    <button class="nav-btn" onclick="scrollToSection('networth')">財富導航</button>
     <button class="nav-btn" onclick="scrollToSection('ladder')">財富階梯</button>
     <button class="nav-btn" onclick="scrollToSection('charts')">圖表分析</button>
   </div>
@@ -1399,21 +1399,15 @@ function calcNetWorth() {
         <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${liabRatio<=30?'var(--teal)':liabRatio<=50?'var(--amber-deep)':'var(--terracotta)'};">${liabRatio}%</div>
       </div>
     </div>
-    <div style="font-size:0.81rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(58,125,110,0.06);border-radius:8px;">
-<strong>財富導航說明：</strong>
-
-您目前的淨資產為 NT$${netWorth.toLocaleString()}。
-
-距離下一階段目標 NT$${targetNetWorth.toLocaleString()}，
-
-目前完成度為 <strong>${wealthIndex}%</strong>。
-
-${wealthIndex >= 100
-? '您已達成目前財富目標，可開始規劃被動收入、退休生活與資產傳承。'
-: wealthIndex >= 50
-? '您已走在正確的道路上，持續累積資產，將逐步邁向下一個財富階梯。'
-: '目前仍處於財富累積階段，建議優先增加儲蓄與投資能力，提升財富水庫的蓄水量。'}
-    </div>`;
+   <div style="font-size:0.81rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(58,125,110,0.06);border-radius:8px;">
+  <strong>財富導航說明：</strong>
+  您目前的淨資產為 NT$${netWorth.toLocaleString()}，
+  參考目標為 NT$${expectedNetWorth.toLocaleString()}，
+  目前完成度為 <strong>${wealthIndex}%</strong>。
+  ${wealthIndex >= 100 ? '您的財富累積已達到參考目標，可開始思考現金流、退休規劃與資產配置。' :
+    wealthIndex >= 50 ? '您正在正確的財富累積道路上，持續提高儲蓄率與投資效率，將有機會邁向下一個財富階梯。' :
+    '您目前仍在財富累積初期，建議優先建立緊急預備金、降低負債並提高儲蓄率。'}
+</div>
   document.getElementById('networthContent').innerHTML = html;
   document.getElementById('networthResult').classList.add('show');
 }
