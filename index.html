@@ -1399,14 +1399,11 @@ function calcNetWorth() {
         <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${liabRatio<=30?'var(--teal)':liabRatio<=50?'var(--amber-deep)':'var(--terracotta)'};">${liabRatio}%</div>
       </div>
     </div>
-   <div style="font-size:0.81rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(58,125,110,0.06);border-radius:8px;">
-  <strong>財富導航說明：</strong>
-  您目前的淨資產為 NT$${netWorth.toLocaleString()}，
-  參考目標為 NT$${expectedNetWorth.toLocaleString()}，
-  目前完成度為 <strong>${wealthIndex}%</strong>。
-  ${wealthIndex >= 100 ? '您已達成目前財富目標，可開始規劃被動收入、退休生活與資產傳承。' :
-    wealthIndex >= 50 ? '您已走在正確的道路上，持續累積資產，將逐步邁向下一個財富階梯。' :
-    '目前仍處於財富累積階段，建議優先增加儲蓄與投資能力，提升財富水庫的蓄水量。'}
+    <div style="font-size:0.81rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(58,125,110,0.06);border-radius:8px;">
+      <strong>評估說明：</strong>財富指數 100% 代表您的淨資產達到同齡平均期望值（公式：年齡 x 年收入 / 10）。
+      ${wealthIndex >= 100 ? '您的財富積累優於預期，繼續保持！' :
+        wealthIndex >= 50  ? '您在正確的軌道上，加速儲蓄可提升財富指數。' :
+        '建議檢視支出結構，提高儲蓄率以追上期望值。'}
 </div>
 </div>
   document.getElementById('networthContent').innerHTML = html;
