@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LifeWellAdvisor｜人生財富健康檢查中心</title>
+<title>LifeWellAdvisor 人生財富導航系統 V1.0</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -716,7 +716,7 @@
       </svg>
     </div>
     <div class="header-text">
-      <h1>LifeWellAdvisor 人生財富健康檢查中心</h1>
+      <h1>LifeWellAdvisor 人生財富導航系統 V1.0</h1>
       <div class="subtitle">人生財富導航系統讓您看見現在的位置，規劃未來的方向</div>
       <div class="quote-box">人生最大的財務風險，不是賺得太少，而是不知道自己在哪裡？ </div>
       
@@ -1072,8 +1072,8 @@
       </svg>
     </div>
     <div>
-      <h2>財務圖表視覺化</h2>
-      <div class="section-desc">將您的財務數據轉化為直觀圖表，一眼掌握財富全貌</div>
+      <h2>財富全貌分析</h2>
+      <div class="section-desc">透過圖表呈現您的收入、支出、資產與負債，快速掌握目前的財富位置。</div>
     </div>
   </div>
 
@@ -1103,19 +1103,19 @@
     <div class="tips-row">
       <div class="tip-card t1">
         <div class="tip-title">緊急預備金原則</div>
-        <div class="tip-text">建議備有 3~6 個月月支出的緊急備用金，存放於活存或貨幣型基金。</div>
+        <div class="tip-text">建議準備 3～6 個月生活支出的緊急預備金，當人生遇到突發狀況時，讓自己擁有從容應對的能力，可存放於活存或貨幣型基金。</div>
       </div>
       <div class="tip-card t2">
         <div class="tip-title">儲蓄率黃金比例</div>
-        <div class="tip-text">收入的 10% 起步儲蓄，例如：護理師可善用輪班制度的加班津貼優勢。</div>
+        <div class="tip-text">建議每月至少保留收入的 10% 作為儲蓄與投資，讓今天的努力逐漸累積成未來的選擇權。。</div>
       </div>
       <div class="tip-card t3">
-        <div class="tip-title">負債比例警戒線</div>
-        <div class="tip-text">每月負債還款不宜超過稅後收入的 36%，否則會壓縮財富蓄積空間。</div>
+        <div class="tip-title">健康負債原則</div>
+        <div class="tip-text">建議每月貸款支出控制在收入的 36% 以下，保留足夠現金流，才能兼顧生活品質與財富累積。</div>
       </div>
       <div class="tip-card t4">
-        <div class="tip-title">財務自由水位</div>
-        <div class="tip-text">資產產生的被動收入 &gt;= 當被動收入能長期支應生活開銷時，您將擁有更多人生選擇權，而不只是為了收入而工作。</div>
+        <div class="tip-title">人生選擇權</div>
+        <div class="tip-text">資產產生的被動收入 &gt;= 當被動收入能長期支應生活開銷時，工作將不再只是為了收入，而是可以選擇自己真正想做的事情。</div>
       </div>
     </div>
   </div>
@@ -1125,8 +1125,8 @@
 
 <!-- ===== FOOTER ===== -->
 <footer>
-  <strong>LifeWellAdvisor 人生財富健康檢查中心</strong> &copy; 2026 &nbsp;|&nbsp; 本工具僅供教育性財務規劃參考，不構成投資建議<br>
-  適合所有想改善財務健康的人使用 &nbsp;|&nbsp; 所有計算均在本地端進行，不儲存任何個人資料
+  <strong>LifeWellAdvisor 人生財富導航系統v1.0</strong> &copy; 2026 &nbsp;|&nbsp; 本工具旨在協助使用者了解目前財富位置與未來方向，不構成投資建議<br>
+  適合所有希望提升財務健康與人生選擇權的人使用 &nbsp;|&nbsp; 所有計算均在本地端進行，不儲存任何個人資料
 </footer>
 
 <script>
@@ -1199,40 +1199,40 @@ function updateCheckTable() {
       val: debtRate.toFixed(1) + '%',
       std: '<= 36%',
       status: debtRate <= 20 ? 'good' : debtRate <= 36 ? 'warning' : 'danger',
-      label: debtRate <= 20 ? '健康' : debtRate <= 36 ? '注意' : '危險',
-      note: '月還款金額佔收入比例'
+      label: debtRate <= 20 ? '財務健康' : debtRate <= 36 ? '尚可控制' : '負擔偏重',
+      note: '每月貸款支出佔收入比例'
     },
     {
       name: '緊急備用金',
       val: emergMths.toFixed(1) + ' 個月',
       std: '>= 3 個月',
       status: emergMths >= 6 ? 'good' : emergMths >= 3 ? 'warning' : 'danger',
-      label: emergMths >= 6 ? '充足' : emergMths >= 3 ? '基本' : '不足',
-      note: '緊急預備金可支撐幾個月支出'
+      label: emergMths >= 6 ? '安全' : emergMths >= 3 ? '穩定' : '需補強',
+      note: '若失去收入，可維持目前生活多久？'
     },
     {
       name: '支出比率',
       val: expenseRate.toFixed(1) + '%',
       std: '<= 70%',
       status: expenseRate <= 60 ? 'good' : expenseRate <= 75 ? 'warning' : 'danger',
-      label: expenseRate <= 60 ? '良好' : expenseRate <= 75 ? '偏高' : '超標',
-      note: '月支出佔月收入比例'
+      label: expenseRate <= 60 ? '健康' : expenseRate <= 75 ? '需留意' : '壓力山大',
+      note: '每賺100元，有多少用於生活支出？'
     },
     {
       name: '月結餘',
       val: 'NT$ ' + (income - expense).toLocaleString(),
       std: '> 0',
       status: (income - expense) > 5000 ? 'good' : (income - expense) > 0 ? 'warning' : 'danger',
-      label: (income - expense) > 5000 ? '有盈餘' : (income - expense) > 0 ? '微盈餘' : '入不敷出',
-      note: '每月收入扣除支出後剩餘'
+      label: (income - expense) > 5000 ? '持續累積' : (income - expense) > 0 ? '小幅累積' : '需要調整',
+      note: '每月可投入儲蓄與投資的金額'
     },
     {
       name: '資產積累',
       val: 'NT$ ' + assets.toLocaleString(),
       std: '逐年增加',
       status: assets > income * 12 ? 'good' : assets > income * 6 ? 'warning' : assets > 0 ? 'none' : 'danger',
-      label: assets > income * 12 ? '豐沛' : assets > income * 6 ? '成長中' : assets > 0 ? '起步' : '待建立',
-      note: '總資產是否超過年收入'
+      label: assets > income * 12 ? '財富穩健' : assets > income * 6 ? '持續成長' : assets > 0 ? '建立基礎' : '開始累積',
+      note: '觀察資產累積速度是否跟上收入成長'
     }
   ];
 
@@ -1299,26 +1299,39 @@ function calcReservoir() {
   let html = `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:16px;">
       <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.6);border-radius:10px;">
-        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">達成目標時間</div>
+        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">預計達標時間</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;">${years > 0 ? years + ' 年' : ''}${rem > 0 ? ' ' + rem + ' 個月' : ''}</div>
         <div style="font-size:0.75rem;color:var(--text-light);">${months >= 600 ? '超過 50 年，請調整計劃' : months + ' 個月後達標'}</div>
       </div>
       <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.6);border-radius:10px;">
-        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">退休時預估資產</div>
+        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">退休財富水位</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;">NT$ ${Math.round(retireBalance).toLocaleString()}</div>
         <div style="font-size:0.75rem;color:var(--text-light);">${yearsToRetire} 年後（${retireAge} 歲）</div>
       </div>
       ${fireNum > 0 ? `<div style="text-align:center;padding:16px;background:rgba(255,255,255,0.6);border-radius:10px;">
-        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">財務自由門檻（4% 法則）</div>
+        <div style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;letter-spacing:0.08em;">人生選擇權門檻（FIRE）</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;">NT$ ${Math.round(fireNum).toLocaleString()}</div>
         <div style="font-size:0.75rem;color:var(--text-light);">${fireYrs !== null ? Math.round(fireYrs/12) + ' 年後達到 FIRE' : ''}</div>
       </div>` : ''}
     </div>
     <div style="font-size:0.82rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(255,255,255,0.5);border-radius:8px;">
-      <strong>水庫分析：</strong>目前水位 NT$ ${current.toLocaleString()}，目標水位 NT$ ${target.toLocaleString()}，
-      缺口為 NT$ ${(target-current).toLocaleString()}。以每月蓄水 NT$ ${monthly.toLocaleString()} 計算，
-      ${rate > 0 ? '加計年化報酬 ' + (rate*1200).toFixed(1) + '%，' : ''}
-      預計 <strong>${years > 0 ? years+'年' : ''}${rem > 0 ? rem+'個月' : ''}</strong> 後可蓄滿目標水塔。
+      <strong>財富導航：</strong>
+
+您目前累積的財富水位為 NT$ ${current.toLocaleString()}，
+
+距離目標水位 NT$ ${target.toLocaleString()}，
+
+尚需累積 NT$ ${(target-current).toLocaleString()}。
+
+以目前每月蓄水 NT$ ${monthly.toLocaleString()} 的速度，
+
+${rate > 0 ? '並假設年化成長率為 ' + (rate*1200).toFixed(1) + '%，' : ''}
+
+預計約需
+
+<strong>${years > 0 ? years+'年' : ''}${rem > 0 ? rem+'個月' : ''}</strong>
+
+即可達成目標。
     </div>`;
   document.getElementById('reservoirContent').innerHTML = html;
   document.getElementById('reservoirResult').classList.add('show');
@@ -1338,8 +1351,8 @@ function calcBalance() {
   if (totalA > 0 || totalL > 0) {
     document.getElementById('nwValue').textContent = Math.abs(nw).toLocaleString();
     const sub = nw >= 0
-      ? `資產超過負債 NT$ ${nw.toLocaleString()}，財務狀況正向`
-      : `負債超過資產 NT$ ${Math.abs(nw).toLocaleString()}，建議積極還款`;
+      ? `資產超過負債 NT$ ${nw.toLocaleString()}，財富水位為正值，目前已具備穩定累積基礎`
+      : `負債超過資產 NT$ ${Math.abs(nw).toLocaleString()}，目前負債高於資產，建議優先強化現金流與儲蓄能力`;
     document.getElementById('nwSubtext').textContent = sub;
     document.getElementById('networthDisplay').classList.add('show');
     document.getElementById('networthDisplay').style.background =
@@ -1373,10 +1386,21 @@ function calcNetWorth() {
   const liabRatio = assets > 0 ? (liabs / assets * 100).toFixed(1) : 0;
 
   let wealthLabel = '', wealthColor = '';
-  if (wealthIndex >= 200)     { wealthLabel = '超卓 (PAW)'; wealthColor = '#1a7c5a'; }
-  else if (wealthIndex >= 100){ wealthLabel = '富裕 (AAW)'; wealthColor = '#3a7d6e'; }
-  else if (wealthIndex >= 50) { wealthLabel = '成長中';     wealthColor = '#e8a040'; }
-  else                        { wealthLabel = '需要加速';   wealthColor = '#c46040'; }
+  if (wealthIndex >= 200) {
+    wealthLabel = '財富領航者';
+}
+
+else if (wealthIndex >= 100) {
+    wealthLabel = '財富穩健者';
+}
+
+else if (wealthIndex >= 50) {
+    wealthLabel = '財富成長中';
+}
+
+else {
+    wealthLabel = '財富起步期';
+}
 
   let html = `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:14px;">
@@ -1413,12 +1437,12 @@ function calcNetWorth() {
 // WEALTH LADDER
 // ======================================================
 const ladderSteps = [
-  { num:'1', name:'水桶期', range:'淨資產 < NT$ 100,000', goal:'建立存錢習慣',cls:'ladder-s1', min:0,       max:100000,   bar:10 },
-  { num:'2', name:'水缸期', range:'NT$ 10 萬 ~ 50 萬', goal:'完成緊急預備金', cls:'ladder-s2', min:100000,  max:500000,   bar:25 },
-  { num:'3', name:'蓄水池', range:'NT$ 50 萬 ~ 200 萬', goal:'開始投資理財',  cls:'ladder-s3', min:500000,  max:2000000,  bar:45 },
-  { num:'4', name:'水塔期', range:'NT$ 200 萬 ~ 500 萬', goal:'建立穩定現金流', cls:'ladder-s4', min:2000000, max:5000000,  bar:65 },
-  { num:'5', name:'水庫期', range:'NT$ 500 萬 ~ 3000 萬',goal:'累積可觀淨資產', cls:'ladder-s5', min:5000000, max:30000000, bar:85 },
-  { num:'6', name:'海洋期', range:'NT$ 3000 萬以上',  goal:'財富傳承與影響力',    cls:'ladder-s6', min:30000000,max:Infinity, bar:100 },
+  { num:'1', name:'水桶期', range:'淨資產 < NT$ 100,000', goal:'建立存錢習慣，比追求高報酬更重要。',cls:'ladder-s1', min:0,       max:100000,   bar:10 },
+  { num:'2', name:'水缸期', range:'NT$ 10 萬 ~ 50 萬', goal:'緊急預備金已逐漸成形，可開始學習簡單投資。', cls:'ladder-s2', min:100000,  max:500000,   bar:25 },
+  { num:'3', name:'蓄水池', range:'NT$ 50 萬 ~ 200 萬', goal:'開始讓資產為您工作，而不只是依靠勞力收入。',  cls:'ladder-s3', min:500000,  max:2000000,  bar:45 },
+  { num:'4', name:'水塔期', range:'NT$ 200 萬 ~ 500 萬', goal:'建立穩定現金流，讓人生擁有更多選擇權。', cls:'ladder-s4', min:2000000, max:5000000,  bar:65 },
+  { num:'5', name:'水庫期', range:'NT$ 500 萬 ~ 3000 萬',goal:'財富已具規模，重點轉向保值、傳承與影響力。', cls:'ladder-s5', min:5000000, max:30000000, bar:85 },
+  { num:'6', name:'海洋期', range:'NT$ 3000 萬以上',  goal:'財富自由無虞，可思考如何創造更大的社會價值。',    cls:'ladder-s6', min:30000000,max:Infinity, bar:100 },
 ];
 
 function initLadder() {
@@ -1457,18 +1481,26 @@ function evalLadder() {
 
   if (!currentStep) { currentStep = ladderSteps[0]; }
 
-  const tips = {
-    '1': '正在起步，重點是培養儲蓄習慣，建立緊急預備金。從薪資中強制撥出 10~20% 開始蓄水。',
-    '2': '已有基礎，可開始學習簡單的被動投資（如 ETF），讓水缸自動蓄水。',
-    '3': '蓄水池已成形，是時候規劃多元資產配置，考慮房產、基金或股息型投資。',
-    '4': '水塔豐沛！考慮稅務規劃、遺產規劃，讓財富結構更穩固持久。',
-    '5': '水庫等級，重點轉向財富保值與傳承，被動收入可能已超過生活需求。',
-    '6': '海洋等級，財務自由無虞，可關注影響力投資、慈善或下一代教育規劃。',
-  };
+ const tips = {
+  '1': '建立存錢習慣比追求高報酬更重要。先完成緊急預備金，讓自己面對突發狀況時依然保有選擇權。',
+  '2': '財務基礎已逐漸穩固，可開始學習簡單且長期的投資方式，讓資產慢慢為您工作。',
+  '3': '蓄水池已逐漸成形，建議開始建立多元資產配置，讓財富累積不再只依靠單一收入來源。',
+  '4': '穩定的現金流正在形成。除了持續累積資產外，也可開始思考退休規劃、稅務規劃與風險管理。',
+  '5': '財富已具規模，重點逐漸從創造財富轉向守護財富，並開始規劃傳承與人生下半場。',
+  '6': '財務自由已不再是主要課題。此階段更重要的是發揮影響力，透過教育、公益或傳承創造更長遠的價值。'
+};
 
   const ageBonus = age > 0
-    ? `（${age} 歲達到${currentStep.name}，${age < 30 ? '非常優秀！早起的鳥兒有蟲吃。' : age < 40 ? '表現良好，繼續蓄水。' : age < 50 ? '持續累積，未來仍可期。' : '踏實積累，穩健致勝。'}）`
-    : '';
+  ? `（${age} 歲達到 ${currentStep.name}，${
+      age < 30
+        ? '已領先多數同齡人，持續累積將產生強大的複利效果。'
+      : age < 40
+        ? '正處於財富成長的重要階段，持續前進即可逐步拉開差距。'
+      : age < 50
+        ? '人生下半場即將展開，現在的累積將決定未來的選擇權。'
+      : '穩健累積的成果正在顯現，重點可逐步轉向保值與傳承。'
+    }）`
+  : '';
 
   document.getElementById('ladderContent').innerHTML = `
     <div style="font-size:1rem;font-weight:600;color:var(--amber-deep);margin-bottom:8px;">
