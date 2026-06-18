@@ -1398,12 +1398,12 @@ function calcNetWorth() {
         <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">負債比率</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${liabRatio<=30?'var(--teal)':liabRatio<=50?'var(--amber-deep)':'var(--terracotta)'};">${liabRatio}%</div>
       </div>
-    </div>
+       </div>
     <div style="font-size:0.81rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(58,125,110,0.06);border-radius:8px;">
-      <strong>評估說明：</strong>財富指數 100% 代表您的淨資產達到同齡平均期望值（公式：年齡 x 年收入 / 10）。
-      ${wealthIndex >= 100 ? '您的財富積累優於預期，繼續保持！' :
-        wealthIndex >= 50  ? '您在正確的軌道上，加速儲蓄可提升財富指數。' :
-        '建議檢視支出結構，提高儲蓄率以追上期望值。'}
+      <strong>財富導航說明：</strong>財富指數是用來觀察「目前淨資產」與「年齡、收入對應的參考目標」之間的距離。100% 代表已達到參考目標。
+      ${wealthIndex >= 100 ? '您的財富累積已達參考目標，可開始思考現金流、退休規劃與資產配置。' :
+        wealthIndex >= 50  ? '您已走在正確的財富累積道路上，持續提高儲蓄率與投資效率，將有機會邁向下一個財富階梯。' :
+        '目前仍處於財富累積階段，建議優先檢視支出結構、提高儲蓄率，讓財富水庫逐步蓄水。'}
     </div>`;
   document.getElementById('networthContent').innerHTML = html;
   document.getElementById('networthResult').classList.add('show');
