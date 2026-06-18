@@ -736,7 +736,7 @@
     <button class="nav-btn active" onclick="scrollToSection('health')">健檢表</button>
     <button class="nav-btn" onclick="scrollToSection('reservoir')">水庫計算器</button>
     <button class="nav-btn" onclick="scrollToSection('balance')">資產負債表</button>
-    <button class="nav-btn" onclick="scrollToSection('networth')">財富導航</button>
+    <button class="nav-btn" onclick="scrollToSection('networth')">淨資產</button>
     <button class="nav-btn" onclick="scrollToSection('ladder')">財富階梯</button>
     <button class="nav-btn" onclick="scrollToSection('charts')">圖表分析</button>
   </div>
@@ -1386,11 +1386,11 @@ function calcNetWorth() {
           ${nw >= 0 ? '' : '-'}NT$ ${Math.abs(nw).toLocaleString()}</div>
       </div>
       ${expectedNW > 0 ? `<div style="text-align:center;padding:16px;background:rgba(232,160,64,0.08);border-radius:10px;">
-        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">下一階段目標</div>
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">期望淨資產</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--amber-deep);">NT$ ${Math.round(expectedNW).toLocaleString()}</div>
       </div>
       <div style="text-align:center;padding:16px;background:rgba(232,160,64,0.08);border-radius:10px;">
-        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">完成度</div>
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">財富指數</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${wealthColor};">${wealthIndex}%</div>
         <div style="font-size:0.7rem;color:${wealthColor};">${wealthLabel}</div>
       </div>` : ''}
@@ -1404,8 +1404,7 @@ function calcNetWorth() {
       ${wealthIndex >= 100 ? '您的財富積累優於預期，繼續保持！' :
         wealthIndex >= 50  ? '您在正確的軌道上，加速儲蓄可提升財富指數。' :
         '建議檢視支出結構，提高儲蓄率以追上期望值。'}
-</div>
-</div>
+    </div>`;
   document.getElementById('networthContent').innerHTML = html;
   document.getElementById('networthResult').classList.add('show');
 }
