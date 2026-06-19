@@ -717,8 +717,8 @@
     </div>
     <div class="header-text">
       <h1>LifeWellAdvisor 人生財富導航系統 V1.0</h1>
-      <div class="subtitle">看見現在的位置，規劃未來的方向</div>
-      <div class="quote-box">人生最大的財務風險，不是賺得太少，而是不知道自己在哪裡？ </div>
+      <div class="subtitle">透過財富水塔、財富水庫與財富階梯，協助每個人建立財務安全感與人生選擇權</div>
+      <div class="quote-box">認清自己的財富位階，才能選擇適合自己的理財方式。 </div>
       
       <div class="header-tagline">
         <span class="tag-pill">財富健康檢查</span>
@@ -754,7 +754,7 @@
       </svg>
     </div>
     <div>
-      <h2>財富健康導航</h2>
+      <h2>財富健康檢查</h2>
       <div class="section-desc">輸入您的財務數據，系統將協助您找到目前的位置與下一步方向。</div>
     </div>
   </div>
@@ -818,7 +818,7 @@
     </div>
     <div>
       <h2>財富水庫計算器</h2>
-      <div class="section-desc">計算您的財富水位與每月蓄水量，預測達成目標所需時間</div>
+      <div class="section-desc">計算目前財富水位與每月蓄水量，預估達成目標所需時間。</div>
     </div>
   </div>
 
@@ -987,7 +987,7 @@
     </div>
     <div>
       <h2>財富導航系統</h2>
-      <div class="section-desc">透過淨資產、財富指數與負債比率，看見目前的財富位置</div>
+      <div class="section-desc">透過淨資產、財富指數與負債比率，看見目前財富位置。</div>
     </div>
   </div>
 
@@ -1034,7 +1034,7 @@
     </div>
     <div>
       <h2>財富階梯評估</h2>
-      <div class="section-desc">對照台灣財富分布，了解您目前站在哪一階</div>
+      <div class="section-desc">對照財富階段，了解您目前所在位置與下一階段任務。</div>
     </div>
   </div>
 
@@ -1073,7 +1073,7 @@
     </div>
     <div>
       <h2>財富全貌分析</h2>
-      <div class="section-desc">透過圖表呈現您的收入、支出、資產與負債，快速掌握目前的財富位置。</div>
+      <div class="section-desc">透過圖表呈現收入、支出、資產與負債，快速掌握財富全貌。</div>
     </div>
   </div>
 
@@ -1405,12 +1405,12 @@ else {
   let html = `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:14px;">
       <div style="text-align:center;padding:16px;background:rgba(58,125,110,0.08);border-radius:10px;">
-        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">淨資產</div>
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">目前淨資產</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:${nw>=0?'var(--teal)':'var(--terracotta)'};">
           ${nw >= 0 ? '' : '-'}NT$ ${Math.abs(nw).toLocaleString()}</div>
       </div>
       ${expectedNW > 0 ? `<div style="text-align:center;padding:16px;background:rgba(232,160,64,0.08);border-radius:10px;">
-        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">期望淨資產</div>
+        <div style="font-size:0.72rem;letter-spacing:0.08em;color:var(--text-light);">下一階段目標</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--amber-deep);">NT$ ${Math.round(expectedNW).toLocaleString()}</div>
       </div>
       <div style="text-align:center;padding:16px;background:rgba(232,160,64,0.08);border-radius:10px;">
@@ -1425,9 +1425,9 @@ else {
        </div>
     <div style="font-size:0.81rem;color:var(--text-mid);line-height:1.8;padding:12px 16px;background:rgba(58,125,110,0.06);border-radius:8px;">
       <strong>財富導航說明：</strong>財富指數是用來觀察「目前淨資產」與「年齡、收入對應的參考目標」之間的距離。100% 代表已達到參考目標。
-      ${wealthIndex >= 100 ? '您的財富累積已達參考目標，可開始思考現金流、退休規劃與資產配置。' :
-        wealthIndex >= 50  ? '您已走在正確的財富累積道路上，持續提高儲蓄率與投資效率，將有機會邁向下一個財富階梯。' :
-        '目前仍處於財富累積階段，建議優先檢視支出結構、提高儲蓄率，讓財富水庫逐步蓄水。'}
+      ${wealthIndex >= 100 ? '您已達成目前財富目標，可開始規劃被動收入、退休生活與資產傳承。' :
+        wealthIndex >= 50  ? '您已走在正確的道路上，持續累積資產，將逐步邁向下一個財富階梯。' :
+        '目前仍處於財富累積階段，建議優先增加儲蓄與投資能力，提升財富水庫的蓄水量。'}
     </div>`;
   document.getElementById('networthContent').innerHTML = html;
   document.getElementById('networthResult').classList.add('show');
@@ -1442,7 +1442,7 @@ const ladderSteps = [
   { num:'3', name:'蓄水池', range:'NT$ 50 萬 ~ 200 萬', goal:'開始讓資產為您工作，而不只是依靠勞力收入。',  cls:'ladder-s3', min:500000,  max:2000000,  bar:45 },
   { num:'4', name:'水塔期', range:'NT$ 200 萬 ~ 500 萬', goal:'建立穩定現金流，讓人生擁有更多選擇權。', cls:'ladder-s4', min:2000000, max:5000000,  bar:65 },
   { num:'5', name:'水庫期', range:'NT$ 500 萬 ~ 3000 萬',goal:'財富已具規模，重點轉向保值、傳承與影響力。', cls:'ladder-s5', min:5000000, max:30000000, bar:85 },
-  { num:'6', name:'海洋期', range:'NT$ 3000 萬以上',  goal:'財富自由無虞，可思考如何創造更大的社會價值。',    cls:'ladder-s6', min:30000000,max:Infinity, bar:100 },
+  { num:'6', name:'海洋期', range:'NT$ 3000 萬以上',  goal:'財富無虞，可思考如何創造更大的社會價值。',    cls:'ladder-s6', min:30000000,max:Infinity, bar:100 },
 ];
 
 function initLadder() {
@@ -1487,7 +1487,7 @@ function evalLadder() {
   '3': '蓄水池已逐漸成形，建議開始建立多元資產配置，讓財富累積不再只依靠單一收入來源。',
   '4': '穩定的現金流正在形成。除了持續累積資產外，也可開始思考退休規劃、稅務規劃與風險管理。',
   '5': '財富已具規模，重點逐漸從創造財富轉向守護財富，並開始規劃傳承與人生下半場。',
-  '6': '財務自由已不再是主要課題。此階段更重要的是發揮影響力，透過教育、公益或傳承創造更長遠的價值。'
+  '6': '財務已不再是主要課題。此階段更重要的是發揮影響力，透過教育、公益或傳承創造更長遠的價值。'
 };
 
   const ageBonus = age > 0
