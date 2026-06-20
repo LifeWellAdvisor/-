@@ -687,6 +687,43 @@
     opacity: 1;
     transform: translateY(0);
   }
+  .feedback-box {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 24px;
+  background: var(--warm-white);
+  border: 1px solid rgba(58,125,110,0.15);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.feedback-box h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: var(--teal);
+}
+
+.feedback-box p {
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.feedback-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  background: var(--teal);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.feedback-btn:hover {
+  background: var(--teal-light);
+}
 </style>
 </head>
 <body>
@@ -1122,7 +1159,16 @@
 </section>
 
 </main>
-
+<div class="feedback-box">
+  <h3>💡 協助我們做得更好</h3>
+  <p>
+    LifeWellAdvisor 人生財富導航系統 V1.0 持續優化中，
+    歡迎提供您的使用心得與建議。
+  </p>
+  <a href="https://forms.gle/hZmZQSE4msHiEQ796" target="_blank" class="feedback-btn">
+    我要提供回饋
+  </a>
+</div>
 <!-- ===== FOOTER ===== -->
 <footer>
   <strong>LifeWellAdvisor 人生財富導航系統v1.0</strong> &copy; 2026 &nbsp;|&nbsp; 本工具旨在協助使用者了解目前財富位置與未來方向，不構成投資建議<br>
