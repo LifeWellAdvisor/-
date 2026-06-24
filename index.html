@@ -874,22 +874,22 @@
   </div>
 
   <div class="card">
-    <div class="form-grid">
-      <div class="form-group">
-        <label>目前總存款 / 投資（元）</label>
-        <input type="number" id="res_current" placeholder="例：500000" oninput="updateMoneyHint('res_current','hint_res_current')">
-        <span class="input-hint">包含活存、定存、股票市值</span>
-      </div>
+    <div class="form-group">
+  <label>目前總存款 / 投資（元）</label>
+  <input type="number" id="res_current" placeholder="例：500,000" oninput="updateMoneyHint('res_current','hint_res_current')">
+  <div class="money-hint" id="hint_res_current"></div>
+  <span class="input-hint">包含活存、定存、股票市值</span>
+</div>
       <div class="form-group">
         <label>目標財富水位（元）</label>
-        <input type="number" id="res_target" placeholder="例：3000000" oninput="updateMoneyHint('res_target','hint_res_target')">
+        <input type="number" id="res_target" placeholder="例：3,000,000" oninput="updateMoneyHint('res_target','hint_res_target')">
 <div class="money-hint" id="hint_res_target"></div>        
         <span class="input-hint">您希望累積的財富目標</span>
       </div>
       <div class="form-group">
-        <label>每月儲蓄金額（元）</label>
-        <input type="number" id="res_monthly" placeholder="例：5000" oninput="updateMoneyHint('res_monthly','hint_res_monthly')">
-<div class="money-hint" id="hint_res_monthly">
+  <label>每月儲蓄金額（元）</label>
+  <input type="number" id="res_monthly" placeholder="例：5,000" oninput="updateMoneyHint('res_monthly','hint_res_monthly')">
+  <div class="money-hint" id="hint_res_monthly"></div>
 </div>
       <div class="form-group">
         <label>年化報酬率（%）</label>
@@ -898,7 +898,7 @@
       </div>
       <div class="form-group">
         <label>月支出（元）</label>
-        <input type="number" id="res_expense" placeholder="例：30000" oninput="updateMoneyHint('res_expense','hint_res_expense')">
+        <input type="number" id="res_expense" placeholder="例：30,000" oninput="updateMoneyHint('res_expense','hint_res_expense')">
 <div class="money-hint" id="hint_res_expense"></div>
         <span class="input-hint">計算財務自由度使用</span>
       </div>
