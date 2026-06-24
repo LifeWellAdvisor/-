@@ -724,6 +724,12 @@
 .feedback-btn:hover {
   background: var(--teal-light);
 }
+  .money-hint {
+  margin-top: 6px;
+  font-size: 0.82rem;
+  color: var(--teal);
+  font-weight: 600;
+}
 </style>
 </head>
 <body>
@@ -863,18 +869,23 @@
     <div class="form-grid">
       <div class="form-group">
         <label>目前總存款 / 投資（元）</label>
-        <input type="number" id="res_current" placeholder="例：500000">
+        <input type="number" id="res_current" placeholder="例：500,000" oninput="updateMoneyHint('res_current','hint_res_current')">
+<div class="money-hint" id="hint_res_current">
+</div>
         <span class="input-hint">包含活存、定存、股票市值</span>
       </div>
       <div class="form-group">
         <label>目標財富水位（元）</label>
-        <input type="number" id="res_target" placeholder="例：3000000">
+        <input type="number" id="res_target" placeholder="例：3,000,000" oninput="updateMoneyHint('res_target','hint_res_target')">
+<div class="money-hint" id="hint_res_target">
+</div>
         <span class="input-hint">您希望累積的財富目標</span>
       </div>
       <div class="form-group">
         <label>每月儲蓄金額（元）</label>
-        <input type="number" id="res_monthly" placeholder="例：12000">
-      </div>
+        <input type="number" id="res_monthly" placeholder="例：5,000" oninput="updateMoneyHint('res_monthly','hint_res_monthly')">
+<div class="money-hint" id="hint_res_monthly">
+</div>
       <div class="form-group">
         <label>年化報酬率（%）</label>
         <input type="number" id="res_rate" placeholder="例：6" step="0.1">
@@ -882,7 +893,9 @@
       </div>
       <div class="form-group">
         <label>月支出（元）</label>
-        <input type="number" id="res_expense" placeholder="例：30000">
+        <input type="number" id="res_expense" placeholder="例：30,000" oninput="updateMoneyHint('res_expense','hint_res_expense')">
+<div class="money-hint" id="hint_res_expense">
+</div>
         <span class="input-hint">計算財務自由度使用</span>
       </div>
       <div class="form-group">
@@ -1702,11 +1715,27 @@ function renderAllCharts() {
     }
   });
 }
-
 // Auto-render charts on page load with placeholder data
 window.addEventListener('load', () => {
   setTimeout(renderAllCharts, 300);
 });
+  function updateMoneyHint(inputId, hintId) {
+  const input = document.getElementById(inputId);
+  const hint = document.getElementById(hintId);
+
+  if (!input || !hint) return;
+
+  const value = Number(input.value);
+
+  if (!value) {
+    hint.textContent = '';
+    return;
+  }
+
+  const wan = Math.round(value / 10000);
+
+  hint.textContent = `≈ NT$ ${value.toLocaleString()}｜約 ${wan.toLocaleString()} 萬元`;
+}
 </script>
 
 </body>
